@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://31ab414ce08b:5432/job_manager
+    url: jdbc:postgresql://31ab414ce08b:5432/company_manager
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
@@ -42,9 +42,10 @@ management:
 
 info:
   app:
-    name: Job Manager
-    description: A simple job application system
+    name: Company Manager
+    description: A simple company application system
     version: 1.0.0
 
 server:
   shutdown: graceful
+  port: 8081

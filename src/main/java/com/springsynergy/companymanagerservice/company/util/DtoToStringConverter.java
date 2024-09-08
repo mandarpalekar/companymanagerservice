@@ -1,4 +1,4 @@
-package com.springsynergy.jobapp.util;
+package com.springsynergy.companymanagerservice.company.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

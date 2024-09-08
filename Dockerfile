@@ -19,10 +19,10 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar file from the build stage to the runtime stage
-COPY --from=build /app/target/jobmanagerservice-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/companymanagerservice-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 8081
 
 # Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]

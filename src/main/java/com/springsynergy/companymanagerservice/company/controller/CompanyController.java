@@ -1,10 +1,10 @@
-package com.springsynergy.jobapp.company.controller;
+package com.springsynergy.companymanagerservice.company.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.springsynergy.jobapp.company.model.CompanyDto;
-import com.springsynergy.jobapp.company.service.CompanyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springsynergy.jobapp.util.DtoToStringConverter;
+import com.springsynergy.companymanagerservice.company.model.CompanyDto;
+import com.springsynergy.companymanagerservice.company.service.CompanyService;
+import com.springsynergy.companymanagerservice.company.util.DtoToStringConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +46,9 @@ public class CompanyController {
 
     @GetMapping("/company/id/{companyId}")
     public ResponseEntity<String> getCompanyById(@PathVariable UUID companyId) {
+       log.info("Company id: {}", companyId);
        CompanyDto companyDto = companyService.getCompanyById(companyId);
+       log.info("Company Dto: {}", companyDto);
        if(companyDto == null) {
            return new ResponseEntity<>("Company not found", HttpStatus.NOT_FOUND);
        } else {
@@ -61,6 +63,7 @@ public class CompanyController {
         }
         String decodedCompanyName = URLDecoder.decode(companyName, StandardCharsets.UTF_8);
         CompanyDto companyDto = companyService.getCompanyByName(decodedCompanyName);
+        log.info("Company Dto: {}", companyDto);
         return dtoToStringConverter.convertDtoToString(companyDto);
     }
 
@@ -90,6 +93,8 @@ public class CompanyController {
 
     @PutMapping("/company/updateCompany/id/{companyId}")
     public ResponseEntity<String> updateCompanyById(@PathVariable String companyId, @RequestBody CompanyDto companyDto) {
+        log.info("Company id: {}", companyId);
+        log.info("Company Dto: {}", companyDto);
         boolean isUpdated = companyService.updateCompanyById(companyId, companyDto);
         if(isUpdated) {
             return new ResponseEntity<>("Company updated", HttpStatus.OK);

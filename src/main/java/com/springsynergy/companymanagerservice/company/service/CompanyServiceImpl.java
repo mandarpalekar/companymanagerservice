@@ -1,18 +1,14 @@
-package com.springsynergy.jobapp.company.service;
+package com.springsynergy.companymanagerservice.company.service;
 
-import com.springsynergy.jobapp.company.entity.Company;
-import com.springsynergy.jobapp.company.model.CompanyDto;
-import com.springsynergy.jobapp.company.repository.CompanyRepository;
-import com.springsynergy.jobapp.Job.entity.Job;
-import com.springsynergy.jobapp.Job.model.JobDto;
-import com.springsynergy.jobapp.Job.repository.JobRepository;
-import com.springsynergy.jobapp.exception.CompanyAlreadyExistsException;
-import com.springsynergy.jobapp.util.EntityDtoMapper;
+import com.springsynergy.companymanagerservice.company.entity.Company;
+import com.springsynergy.companymanagerservice.company.exception.CompanyAlreadyExistsException;
+import com.springsynergy.companymanagerservice.company.model.CompanyDto;
+import com.springsynergy.companymanagerservice.company.repository.CompanyRepository;
+import com.springsynergy.companymanagerservice.company.util.CompanyEntityDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -26,16 +22,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    private final JobRepository jobRepository;
-
-    private final EntityDtoMapper entityDtoMapper;
+    private final CompanyEntityDtoMapper companEentityDtoMapper;
 
     @Override
     public Set<CompanyDto> getAllCompanies() {
         Set<CompanyDto> companyDtos = new HashSet<>();
         Set<Company> companies = new HashSet<>(companyRepository.findAll());
         for (Company company : companies) {
-            companyDtos.add(entityDtoMapper.companyToCompanyDto(company));
+            companyDtos.add(companEentityDtoMapper.companyToCompanyDto(company));
         }
         return companyDtos;
     }
@@ -43,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDto getCompanyById(UUID companyId) {
         Optional<Company> companyOptional = companyRepository.findById(companyId);
-        return companyOptional.map(entityDtoMapper::companyToCompanyDto).orElse(null);
+        return companyOptional.map(companEentityDtoMapper::companyToCompanyDto).orElse(null);
     }
 
     @Override
@@ -52,14 +46,8 @@ public class CompanyServiceImpl implements CompanyService {
         if (existingCompany.isPresent()) {
             throw new CompanyAlreadyExistsException("Company with name " + companyDto.getName() + " already exists.");
         } else {
-            Company company = entityDtoMapper.companyDtoToCompany(companyDto);
+            Company company = companEentityDtoMapper.companyDtoToCompany(companyDto);
             log.info("Company: {}", company);
-            if(!CollectionUtils.isEmpty(company.getJobs())){
-                company.getJobs().forEach(job -> {
-                    log.info("Job: {}", job);
-                    job.setCompany(company);
-                });
-            }
             companyRepository.save(company);
         }
     }
@@ -69,19 +57,7 @@ public class CompanyServiceImpl implements CompanyService {
         Optional<Company> companyOptional = companyRepository.findById(UUID.fromString(companyId));
         if(companyOptional.isPresent()){
             Company company = companyOptional.get();
-            Set<JobDto> jobDtos = companyDto.getJobs();
-            if(!CollectionUtils.isEmpty(jobDtos)){
-                Set<Job> jobs = new HashSet<>();
-                jobDtos.forEach(jobDto -> {
-                    Optional<Job> existingJob = jobRepository.findByJobTitle(jobDto.getJobTitle());
-                    if(existingJob.isPresent()){
-                        Job job = existingJob.get();
-                        BeanUtils.copyProperties(jobDto, job);
-                        job.setCompany(company);
-                        jobs.add(job);
-                    }
-                });
-            }
+            log.info("Company: {}", company);
             BeanUtils.copyProperties(companyDto, company);
             companyRepository.save(company);
             return true;
@@ -94,7 +70,7 @@ public class CompanyServiceImpl implements CompanyService {
         log.info("Company name: {}", companyName);
         log.info("Company name length: {}", companyName.length());
         Optional<Company> companyOptional = companyRepository.findByName(companyName);
-        return companyOptional.map(entityDtoMapper::companyToCompanyDto).orElse(null);
+        return companyOptional.map(companEentityDtoMapper::companyToCompanyDto).orElse(null);
     }
 
     @Override

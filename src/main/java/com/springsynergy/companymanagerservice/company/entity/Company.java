@@ -1,10 +1,11 @@
-package com.springsynergy.jobapp.company.entity;
+package com.springsynergy.companymanagerservice.company.entity;
 
-import com.springsynergy.jobapp.Job.entity.Job;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -28,8 +29,4 @@ public class Company {
 
     @Column(name = "location", length = 255)
     private String location;
-
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Job> jobs;
-
 }

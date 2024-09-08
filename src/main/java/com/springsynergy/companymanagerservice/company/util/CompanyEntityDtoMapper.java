@@ -1,27 +1,16 @@
-package com.springsynergy.jobapp.util;
+package com.springsynergy.companymanagerservice.company.util;
 
-import com.springsynergy.jobapp.company.entity.Company;
-import com.springsynergy.jobapp.company.model.CompanyDto;
-import com.springsynergy.jobapp.Job.entity.Job;
-import com.springsynergy.jobapp.Job.model.JobDto;
+import com.springsynergy.companymanagerservice.company.entity.Company;
+import com.springsynergy.companymanagerservice.company.model.CompanyDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class EntityDtoMapper {
+public class CompanyEntityDtoMapper {
 
     private final ModelMapper modelMapper = new ModelMapper();
-
-    public JobDto jobToJobDto(Job job) {
-
-        return modelMapper.map(job, JobDto.class);
-    }
-
-    public Job jobDtoToJob(JobDto jobDto) {
-        return modelMapper.map(jobDto, Job.class);
-    }
 
     public CompanyDto companyToCompanyDto(Company company) {
         return modelMapper.map(company, CompanyDto.class);

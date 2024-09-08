@@ -3,15 +3,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mandarpalekar/jobmanagerimage:1.0
-    container_name: spring-boot-jobmanager-app
+    image: mandarpalekar/companymanagerimage:1.0
+    container_name: spring-boot-companymanager-app
     platform: linux/amd64
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://31ab414ce08b:5432/job_manager
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://31ab414ce08b:5432/company_manager
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
     ports:
-      - "8080:8080"
+      - "8081:8081"
     volumes:
       - /Users/mandarpalekar/logs:/app/logs
     networks:

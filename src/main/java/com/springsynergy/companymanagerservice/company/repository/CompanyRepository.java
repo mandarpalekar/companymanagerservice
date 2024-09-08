@@ -1,6 +1,6 @@
-package com.springsynergy.jobapp.company.repository;
+package com.springsynergy.companymanagerservice.company.repository;
 
-import com.springsynergy.jobapp.company.entity.Company;
+import com.springsynergy.companymanagerservice.company.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

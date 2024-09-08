@@ -1,6 +1,6 @@
-package com.springsynergy.jobapp.company.repository;
+package com.springsynergy.companymanagerservice.company.repository;
 
-import com.springsynergy.jobapp.company.entity.Company;
+import com.springsynergy.companymanagerservice.company.entity.Company;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;

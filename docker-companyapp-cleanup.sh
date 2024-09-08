@@ -7,7 +7,7 @@ docker stop spring-boot-companymanager-app
 docker image prune -f
 
 # Build images with no cache
-docker-compose build --no-cache spring-boot-companymanager-app
+docker-compose build --no-cache
 
 # Bring up your Docker Compose setup
-docker-compose up -d spring-boot-companymanager-app
+docker-compose up -d

@@ -1,6 +1,6 @@
-package com.springsynergy.jobapp.company.service;
+package com.springsynergy.companymanagerservice.company.service;
 
-import com.springsynergy.jobapp.company.model.CompanyDto;
+import com.springsynergy.companymanagerservice.company.model.CompanyDto;
 
 import java.util.Set;
 import java.util.UUID;
